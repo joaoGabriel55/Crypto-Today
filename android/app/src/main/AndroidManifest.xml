@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.crypto_android_widget">
     <application
-        android:label="crypto_android_widget"
+        android:label="Cryto Today"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

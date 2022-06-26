@@ -15,26 +15,28 @@ class AppWidgetProvider : HomeWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray, widgetData: SharedPreferences) {
         appWidgetIds.forEach { widgetId ->
             val views = RemoteViews(context.packageName, R.layout.widget_layout).apply {
-
                 // Open App on Widget Click
                 val pendingIntent = HomeWidgetLaunchIntent.getActivity(context, MainActivity::class.java)
                 setOnClickPendingIntent(R.id.widget_root, pendingIntent)
 
-                val counter = widgetData.getInt("_counter", 0)
+                val crypto = widgetData.getString("_cryptoSymbol", null)
+                val cryptoValue = widgetData.getString("_cryptoValue", null)
+                var cryptoDisplayText = "$crypto value is: $cryptoValue"
 
-                var counterText = "Your counter value is: $counter"
+                if (cryptoValue == null && crypto == null)
+                    cryptoDisplayText = "You have not choosed an crypto currency"
 
-                if (counter == 0) {
-                    counterText = "You have not pressed the counter button"
-                }
+                setTextViewText(R.id.tv_cryptoValue, cryptoDisplayText)
 
-                setTextViewText(R.id.tv_counter, counterText)
+                // Pending intent to update cryptoValue on button click
+                val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(
+                    context,
+                    Uri.parse("myAppWidget://updatecryptovalue")
+                )
 
-                // Pending intent to update counter on button click
-                val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context,
-                        Uri.parse("myAppWidget://updatecounter"))
                 setOnClickPendingIntent(R.id.bt_update, backgroundIntent)
             }
+
             appWidgetManager.updateAppWidget(widgetId, views)
         }
     }

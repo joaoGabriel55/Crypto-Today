@@ -1,1 +1,1 @@
-String API_URL = 'https://data.messari.io/api/v2';
+String API_URL = 'https://data.messari.io/api';

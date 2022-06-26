@@ -17,21 +17,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    HomeWidget.widgetClicked.listen(loadData);
-    loadData(null); // This will load data from widget every time app is opened
   }
 
-  void loadData(Uri? uri) async {
-    await HomeWidget.getWidgetData<int>('_counter', defaultValue: 0).then(
-      (value) {
-        print(value);
-      },
+  Future<void> updateAppWidget(cryptoSymbolSelected, cryptoValue) async {
+    await HomeWidget.saveWidgetData<String>(
+      '_cryptoSymbol',
+      cryptoSymbolSelected,
     );
-    setState(() {});
-  }
-
-  Future<void> updateAppWidget() async {
-    await HomeWidget.saveWidgetData<int>('_counter', 0);
+    await HomeWidget.saveWidgetData<String>('_cryptoValue', cryptoValue);
     await HomeWidget.updateWidget(
       name: 'AppWidgetProvider',
       iOSName: 'AppWidgetProvider',
@@ -48,8 +41,10 @@ class _HomePageState extends State<HomePage> {
             cryptos: cryptos,
             hasData: cryptos.isNotEmpty,
             hasError: false,
-            onSelected: (crypto) {
-              controller.updateSelectedCrypto(crypto);
+            onSelected: (cryptoSymbol, cryptoPrice) {
+              controller.updateSelectedCrypto(cryptoSymbol);
+
+              updateAppWidget(cryptoSymbol, cryptoPrice);
             },
           );
         },

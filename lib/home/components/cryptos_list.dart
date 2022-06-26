@@ -30,9 +30,11 @@ class _CryptosListState extends State<CryptosList> {
     return ListView(
       children: widget.cryptos.map(
         (crypto) {
+          final cryptoPrice = "${crypto['symbol']} - ${crypto['price']}";
+
           return ListTile(
             title: Text(crypto['name'], style: defaultTextStyle),
-            subtitle: Text(crypto['symbol'], style: defaultTextStyle),
+            subtitle: Text(cryptoPrice, style: defaultTextStyle),
             trailing: Checkbox(
               fillColor: MaterialStateProperty.resolveWith<Color>((states) {
                 if (states.contains(MaterialState.disabled)) {
@@ -42,7 +44,9 @@ class _CryptosListState extends State<CryptosList> {
               }),
               value: crypto['selected'],
               onChanged: (_) {
-                if (!crypto['selected']) widget.onSelected(crypto['symbol']);
+                if (!crypto['selected']) {
+                  widget.onSelected(crypto['symbol'], crypto['price']);
+                }
               },
             ),
           );

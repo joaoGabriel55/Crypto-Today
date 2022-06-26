@@ -1,8 +1,3 @@
-// import 'dart:async';
-
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:crypto_android_widget/services/cryptos_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,16 +13,13 @@ class HomeController implements Disposable {
   }
 
   Future<void> fetch() async {
-    final SharedPreferences preferences = await _preferences;
-    final String? cryptosStored = preferences.getString('cryptos');
+    final cryptoResponse = await cryptosService.fetch();
+    final cryptoSelected = await getCryptoSelectedSharedPreferences();
 
-    if (cryptosStored != null) {
-      cryptos.value = jsonDecode(cryptosStored);
-    } else {
-      final cryptoResponse = await cryptosService.fetch();
-      cryptos.value = cryptoResponse;
+    cryptos.value = cryptoResponse;
 
-      preferences.setString('cryptos', jsonEncode(cryptoResponse));
+    if (cryptoSelected != null) {
+      updateSelectedCrypto(cryptoSelected);
     }
   }
 
@@ -41,12 +33,20 @@ class HomeController implements Disposable {
     }).toList();
 
     cryptos.value = updatedCryptos;
-    setCryptosSharedPreferences(updatedCryptos);
+
+    setCryptoSelectedSharedPreferences(cryptoSelected);
   }
 
-  void setCryptosSharedPreferences(cryptos) async {
+  Future<String?> getCryptoSelectedSharedPreferences() async {
     final SharedPreferences preferences = await _preferences;
-    preferences.setString('cryptos', jsonEncode(cryptos));
+
+    return preferences.getString('crypto_selected');
+  }
+
+  void setCryptoSelectedSharedPreferences(String cryptoSelected) async {
+    final SharedPreferences preferences = await _preferences;
+
+    preferences.setString('crypto_selected', cryptoSelected);
   }
 
   @override

@@ -26,7 +26,7 @@ class CryptosService {
 
   Future fetchCryptoMetrics(cryptoSymbol) async {
     try {
-      final url = "v1/assets/$cryptoSymbol/metrics";
+      final url = "/v1/assets/$cryptoSymbol/metrics";
       Response response = await request.httpGet(url);
 
       final crypto = response.data['data'];

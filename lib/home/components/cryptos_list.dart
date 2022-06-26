@@ -30,7 +30,7 @@ class _CryptosListState extends State<CryptosList> {
     return ListView(
       children: widget.cryptos.map(
         (crypto) {
-          final cryptoPrice = "${crypto['symbol']} - ${crypto['price']}";
+          final cryptoPrice = "${crypto['symbol']} - USD: ${crypto['price']}";
 
           return ListTile(
             title: Text(crypto['name'], style: defaultTextStyle),

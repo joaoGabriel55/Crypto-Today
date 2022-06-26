@@ -25,8 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:backgroundTint="@android:color/white"
         android:text="Refresh"
         android:textColor="@android:color/black"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
   </RelativeLayout>
 </FrameLayout>

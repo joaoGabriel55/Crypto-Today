@@ -21,7 +21,7 @@ class AppWidgetProvider : HomeWidgetProvider() {
 
                 val crypto = widgetData.getString("_cryptoSymbol", null)
                 val cryptoValue = widgetData.getString("_cryptoValue", null)
-                var cryptoDisplayText = "$crypto value is: $cryptoValue"
+                var cryptoDisplayText = "$crypto value in USD is: $cryptoValue"
 
                 if (cryptoValue == null && crypto == null)
                     cryptoDisplayText = "You have not choosed an crypto currency"

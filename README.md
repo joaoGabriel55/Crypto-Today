@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Previews
+
+<div style="display: flex; align-items: start; gap: 8px">
+  <img src="previews/preview1.png" alt="Preview 1" width="300" />
+  <img src="previews/preview2.png" alt="Preview 2" width="500" />
+</div>

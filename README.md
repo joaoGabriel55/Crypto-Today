@@ -1,6 +1,6 @@
-# crypto_android_widget
+# Crypto Today
 
-A new Flutter project.
+An simple Flutter app that informs current Cryptocurrencies values and provides a android's native widget
 
 ## Getting Started
 
